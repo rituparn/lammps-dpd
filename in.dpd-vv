@@ -1,4 +1,4 @@
-# INPUT FILE FOR DPD_Fluid
+# INPUT FILE FOR DPD_Fluid_file put in branch dpd-edit
 
 log             log.lammps_1_400
 boundary        p p p
