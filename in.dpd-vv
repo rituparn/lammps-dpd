@@ -1,0 +1,35 @@
+# INPUT FILE FOR DPD_Fluid
+
+log             log.lammps_1_400
+boundary        p p p
+
+units           metal  # ev, ps
+atom_style      dpd    # atomic atom style can also be used
+read_data       data.dpd
+
+comm_modify     mode single vel yes
+mass            1 125.9
+
+pair_style      dpd 400.0 10.0 245455
+#pair_coeff	* * 1.0
+pair_coeff      * * 0.075 0.022 10.0
+
+neighbor        0.5 bin
+neigh_modify    every 1 delay 0 check no once no
+
+timestep        1
+
+fix             2 all nve
+
+variable        totEnergy equal pe+ke
+
+thermo          50
+thermo_style    custom step temp press pe ke v_totEnergy
+#thermo_style    multi
+#thermo_modify   format float %24.16f
+
+#dump		1 all atom 250 dump.in.dpd-vv
+
+#dump		2 all image 500 image.*.jpg type type
+
+run             3600
